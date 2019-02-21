@@ -11,7 +11,7 @@
                 <el-table-column prop="price" label="金额" width="70"></el-table-column>
                 <el-table-column label="操作" width="100" fixed="right">
                   <template scope="scope">
-                    <el-button type="text" size="small">删除</el-button>
+                    <el-button type="text" size="small" @click="delSingleGoods(scope.row)">删除</el-button>
                     <el-button type="text" size="small" @click="addOrderList(scope.row)">增加</el-button>
                   </template>
                 </el-table-column>
@@ -28,7 +28,7 @@
           </div>
           <div class="order-btn">
             <el-button type="warning">挂单</el-button>
-            <el-button type="danger">删除</el-button>
+            <el-button type="danger" @click="delAllGoods()" delAllGoods>删除</el-button>
             <el-button type="success">结账</el-button>
           </div>
         </el-col>
@@ -136,8 +136,6 @@ export default {
   methods: {
     //添加订单列表的方法
     addOrderList(goods) {
-      this.totalCount = 0; //汇总数量清0
-      this.totalMoney = 0;
       let isHave = false;
       //判断是否存在
       for (let i = 0; i < this.tableData.length; i++) {
@@ -163,10 +161,30 @@ export default {
         this.tableData.push(newGoods);
       }
       //进行数量和价格的汇总计算
-      this.tableData.forEach(element => {
-        this.totalCount += element.count;
-        this.totalMoney = this.totalMoney + element.price * element.count;
-      });
+      this.getAllMoney();
+    },
+    //删除单个商品
+    delSingleGoods(goods) {
+      console.log(goods);
+      this.tableData = this.tableData.filter(o => o.goodsId != goods.goodsId);
+      this.getAllMoney();
+    },
+    //汇总数量和金额
+    getAllMoney() {
+      this.totalCount = 0;
+      this.totalMoney = 0;
+      if (this.tableData) {
+        this.tableData.forEach(element => {
+          this.totalCount += element.count;
+          this.totalMoney = this.totalMoney + element.price * element.count;
+        });
+      }
+    },
+    //删除订单中所有商品
+    delAllGoods() {
+      this.tableData = [];
+      this.totalCount = 0;
+      this.totalMoney = 0;
     }
   },
   mounted() {
