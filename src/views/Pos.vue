@@ -45,19 +45,46 @@
                 <ul class="cookList">
                   <li v-for="(goods,index) in type0Goods" :key="index">
                     <span class="foodImg">
-                      <img
-                        :src="goods.goodsImg"
-                        width="100%"
-                      >
+                      <img :src="goods.goodsImg.match(/^http\:\/\/7xjyw1/)?'https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png':''" width="100%">
                     </span>
                     <span class="foodName">{{goods.goodsName}}</span>
                     <span class="foodPrice">￥{{goods.price}}元</span>
                   </li>
                 </ul>
               </el-tab-pane>
-              <el-tab-pane label="小食">小食</el-tab-pane>
-              <el-tab-pane label="饮料">饮料</el-tab-pane>
-              <el-tab-pane label="套餐">套餐</el-tab-pane>
+              <el-tab-pane label="小食">
+                <ul class="cookList">
+                  <li v-for="(goods,index) in type1Goods" :key="index">
+                    <span class="foodImg">
+                      <img :src="goods.goodsImg.match(/^http\:\/\/7xjyw1/)?'https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png':''" width="100%">
+                    </span>
+                    <span class="foodName">{{goods.goodsName}}</span>
+                    <span class="foodPrice">￥{{goods.price}}元</span>
+                  </li>
+                </ul>
+              </el-tab-pane>
+              <el-tab-pane label="饮料">
+                <ul class="cookList">
+                  <li v-for="(goods,index) in type2Goods" :key="index">
+                    <span class="foodImg">
+                      <img :src="goods.goodsImg.match(/^http\:\/\/7xjyw1/)?'https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png':''" width="100%">
+                    </span>
+                    <span class="foodName">{{goods.goodsName}}</span>
+                    <span class="foodPrice">￥{{goods.price}}元</span>
+                  </li>
+                </ul>
+              </el-tab-pane>
+              <el-tab-pane label="套餐">
+                <ul class="cookList">
+                  <li v-for="(goods,index) in type3Goods" :key="index">
+                    <span class="foodImg">
+                      <img :src="goods.goodsImg.match(/^http\:\/\/7xjyw1/)?'https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png':''" width="100%">
+                    </span>
+                    <span class="foodName">{{goods.goodsName}}</span>
+                    <span class="foodPrice">￥{{goods.price}}元</span>
+                  </li>
+                </ul>
+              </el-tab-pane>
             </el-tabs>
           </div>
         </el-col>
@@ -68,6 +95,10 @@
 
 <script>
 // @ is an alias to /src
+import axios from "axios";
+
+axios.defaults.baseURL =
+  "https://www.easy-mock.com/mock/5b8b30dbf032f03c5e71de7f/kuaican";
 
 export default {
   name: "Pos",
@@ -96,125 +127,40 @@ export default {
           count: 1
         }
       ],
-      oftenGoods: [
-        {
-          goodsId: 1,
-          goodsName: "香辣鸡腿堡",
-          price: 18
-        },
-        {
-          goodsId: 2,
-          goodsName: "田园鸡腿堡",
-          price: 15
-        },
-        {
-          goodsId: 3,
-          goodsName: "和风汉堡",
-          price: 15
-        },
-        {
-          goodsId: 4,
-          goodsName: "快乐全家桶",
-          price: 80
-        },
-        {
-          goodsId: 5,
-          goodsName: "脆皮炸鸡腿",
-          price: 10
-        },
-        {
-          goodsId: 6,
-          goodsName: "魔法鸡块",
-          price: 20
-        },
-        {
-          goodsId: 7,
-          goodsName: "可乐大杯",
-          price: 10
-        },
-        {
-          goodsId: 8,
-          goodsName: "雪顶咖啡",
-          price: 18
-        },
-        {
-          goodsId: 9,
-          goodsName: "大块鸡米花",
-          price: 15
-        },
-        {
-          goodsId: 20,
-          goodsName: "香脆鸡柳",
-          price: 17
-        }
-      ],
-      type0Goods: [
-        {
-          goodsId: 1,
-          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
-          goodsName: "香辣鸡腿堡",
-          price: 18
-        },
-        {
-          goodsId: 2,
-          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
-          goodsName: "田园鸡腿堡",
-          price: 15
-        },
-        {
-          goodsId: 3,
-          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
-          goodsName: "和风汉堡",
-          price: 15
-        },
-        {
-          goodsId: 4,
-          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
-          goodsName: "快乐全家桶",
-          price: 80
-        },
-        {
-          goodsId: 5,
-          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
-          goodsName: "脆皮炸鸡腿",
-          price: 10
-        },
-        {
-          goodsId: 6,
-          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
-          goodsName: "魔法鸡块",
-          price: 20
-        },
-        {
-          goodsId: 7,
-          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
-          goodsName: "可乐大杯",
-          price: 10
-        },
-        {
-          goodsId: 8,
-          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
-          goodsName: "雪顶咖啡",
-          price: 18
-        },
-        {
-          goodsId: 9,
-          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
-          goodsName: "大块鸡米花",
-          price: 15
-        },
-        {
-          goodsId: 20,
-          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
-          goodsName: "香脆鸡柳",
-          price: 17
-        }
-      ]
+      oftenGoods: [],
+      type0Goods: [],
+      type1Goods: [],
+      type2Goods: [],
+      type3Goods: [],
     };
   },
   mounted() {
     var orderHeight = document.body.clientHeight;
     document.getElementById("order-list").style.height = orderHeight + "px";
+  },
+  created() {
+    axios
+      .get("/oftenGoods")
+      .then(response => {
+        // console.log(response);
+        this.oftenGoods = response.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    //读取分类商品列表
+    axios.get("typeGoods")
+      .then(response => {
+        console.log(response);
+        this.type0Goods = response.data[0];
+        this.type1Goods = response.data[1];
+        this.type2Goods = response.data[2];
+        this.type3Goods = response.data[3];
+      })
+      .catch(error => {
+        console.log(error);
+        // alert("网络错误，不能访问");
+      });
   }
 };
 </script>
