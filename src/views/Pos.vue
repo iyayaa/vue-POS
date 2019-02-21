@@ -3,9 +3,9 @@
     <div>
       <el-row>
         <el-col :span="7" class="pos-order" id="order-list">
-          <el-tabs stretch="true">
+          <el-tabs :stretch="true">
             <el-tab-pane label="点餐">
-              <el-table :data="tableData" border  style="width: 100%">
+              <el-table :data="tableData" border style="width: 100%">
                 <el-table-column prop="goodsName" label="商品"></el-table-column>
                 <el-table-column prop="count" label="量" width="50"></el-table-column>
                 <el-table-column prop="price" label="金额" width="70"></el-table-column>
@@ -27,7 +27,40 @@
           </div>
         </el-col>
         <!--商品展示-->
-        <el-col :span="17">我是产品栏</el-col>
+        <el-col :span="17">
+          <div class="often-goods">
+            <div class="title">常用商品</div>
+            <div class="often-goods-list">
+              <ul>
+                <li v-for="(goods,index) in oftenGoods" :key="index">
+                  <span>{{goods.goodsName}}</span>
+                  <span class="o-price">￥{{goods.price}}元</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="goods-type">
+            <el-tabs :stretch="true">
+              <el-tab-pane label="汉堡">
+                <ul class="cookList">
+                  <li v-for="(goods,index) in type0Goods" :key="index">
+                    <span class="foodImg">
+                      <img
+                        :src="goods.goodsImg"
+                        width="100%"
+                      >
+                    </span>
+                    <span class="foodName">{{goods.goodsName}}</span>
+                    <span class="foodPrice">￥{{goods.price}}元</span>
+                  </li>
+                </ul>
+              </el-tab-pane>
+              <el-tab-pane label="小食">小食</el-tab-pane>
+              <el-tab-pane label="饮料">饮料</el-tab-pane>
+              <el-tab-pane label="套餐">套餐</el-tab-pane>
+            </el-tabs>
+          </div>
+        </el-col>
       </el-row>
     </div>
   </div>
@@ -61,6 +94,120 @@ export default {
           goodsName: "甜筒",
           price: 8,
           count: 1
+        }
+      ],
+      oftenGoods: [
+        {
+          goodsId: 1,
+          goodsName: "香辣鸡腿堡",
+          price: 18
+        },
+        {
+          goodsId: 2,
+          goodsName: "田园鸡腿堡",
+          price: 15
+        },
+        {
+          goodsId: 3,
+          goodsName: "和风汉堡",
+          price: 15
+        },
+        {
+          goodsId: 4,
+          goodsName: "快乐全家桶",
+          price: 80
+        },
+        {
+          goodsId: 5,
+          goodsName: "脆皮炸鸡腿",
+          price: 10
+        },
+        {
+          goodsId: 6,
+          goodsName: "魔法鸡块",
+          price: 20
+        },
+        {
+          goodsId: 7,
+          goodsName: "可乐大杯",
+          price: 10
+        },
+        {
+          goodsId: 8,
+          goodsName: "雪顶咖啡",
+          price: 18
+        },
+        {
+          goodsId: 9,
+          goodsName: "大块鸡米花",
+          price: 15
+        },
+        {
+          goodsId: 20,
+          goodsName: "香脆鸡柳",
+          price: 17
+        }
+      ],
+      type0Goods: [
+        {
+          goodsId: 1,
+          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
+          goodsName: "香辣鸡腿堡",
+          price: 18
+        },
+        {
+          goodsId: 2,
+          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
+          goodsName: "田园鸡腿堡",
+          price: 15
+        },
+        {
+          goodsId: 3,
+          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
+          goodsName: "和风汉堡",
+          price: 15
+        },
+        {
+          goodsId: 4,
+          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
+          goodsName: "快乐全家桶",
+          price: 80
+        },
+        {
+          goodsId: 5,
+          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
+          goodsName: "脆皮炸鸡腿",
+          price: 10
+        },
+        {
+          goodsId: 6,
+          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
+          goodsName: "魔法鸡块",
+          price: 20
+        },
+        {
+          goodsId: 7,
+          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
+          goodsName: "可乐大杯",
+          price: 10
+        },
+        {
+          goodsId: 8,
+          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
+          goodsName: "雪顶咖啡",
+          price: 18
+        },
+        {
+          goodsId: 9,
+          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
+          goodsName: "大块鸡米花",
+          price: 15
+        },
+        {
+          goodsId: 20,
+          goodsImg: "https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png",
+          goodsName: "香脆鸡柳",
+          price: 17
         }
       ]
     };
