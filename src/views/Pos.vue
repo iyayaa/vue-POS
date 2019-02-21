@@ -12,7 +12,7 @@
                 <el-table-column label="操作" width="100" fixed="right">
                   <template scope="scope">
                     <el-button type="text" size="small">删除</el-button>
-                    <el-button type="text" size="small">增加</el-button>
+                    <el-button type="text" size="small" @click="addOrderList(scope.row)">增加</el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -20,6 +20,12 @@
             <el-tab-pane label="挂单">挂单</el-tab-pane>
             <el-tab-pane label="外卖">外卖</el-tab-pane>
           </el-tabs>
+          <div class="totalDiv">
+            <small>数量：</small>
+            <strong>{{totalCount}}</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+            <small>总计：</small>
+            <strong>{{totalMoney}}</strong> 元
+          </div>
           <div class="order-btn">
             <el-button type="warning">挂单</el-button>
             <el-button type="danger">删除</el-button>
@@ -32,7 +38,7 @@
             <div class="title">常用商品</div>
             <div class="often-goods-list">
               <ul>
-                <li v-for="(goods,index) in oftenGoods" :key="index">
+                <li v-for="(goods,index) in oftenGoods" :key="index" @click="addOrderList(goods)">
                   <span>{{goods.goodsName}}</span>
                   <span class="o-price">￥{{goods.price}}元</span>
                 </li>
@@ -43,9 +49,12 @@
             <el-tabs :stretch="true">
               <el-tab-pane label="汉堡">
                 <ul class="cookList">
-                  <li v-for="(goods,index) in type0Goods" :key="index">
+                  <li v-for="(goods,index) in type0Goods" :key="index" @click="addOrderList(goods)">
                     <span class="foodImg">
-                      <img :src="goods.goodsImg.match(/^http\:\/\/7xjyw1/)?'https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png':''" width="100%">
+                      <img
+                        :src="goods.goodsImg.match(/^http\:\/\/7xjyw1/)?'https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png':''"
+                        width="100%"
+                      >
                     </span>
                     <span class="foodName">{{goods.goodsName}}</span>
                     <span class="foodPrice">￥{{goods.price}}元</span>
@@ -54,9 +63,12 @@
               </el-tab-pane>
               <el-tab-pane label="小食">
                 <ul class="cookList">
-                  <li v-for="(goods,index) in type1Goods" :key="index">
+                  <li v-for="(goods,index) in type1Goods" :key="index" @click="addOrderList(goods)">
                     <span class="foodImg">
-                      <img :src="goods.goodsImg.match(/^http\:\/\/7xjyw1/)?'https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png':''" width="100%">
+                      <img
+                        :src="goods.goodsImg.match(/^http\:\/\/7xjyw1/)?'https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png':''"
+                        width="100%"
+                      >
                     </span>
                     <span class="foodName">{{goods.goodsName}}</span>
                     <span class="foodPrice">￥{{goods.price}}元</span>
@@ -67,7 +79,10 @@
                 <ul class="cookList">
                   <li v-for="(goods,index) in type2Goods" :key="index">
                     <span class="foodImg">
-                      <img :src="goods.goodsImg.match(/^http\:\/\/7xjyw1/)?'https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png':''" width="100%">
+                      <img
+                        :src="goods.goodsImg.match(/^http\:\/\/7xjyw1/)?'https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png':''"
+                        width="100%"
+                      >
                     </span>
                     <span class="foodName">{{goods.goodsName}}</span>
                     <span class="foodPrice">￥{{goods.price}}元</span>
@@ -78,7 +93,10 @@
                 <ul class="cookList">
                   <li v-for="(goods,index) in type3Goods" :key="index">
                     <span class="foodImg">
-                      <img :src="goods.goodsImg.match(/^http\:\/\/7xjyw1/)?'https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png':''" width="100%">
+                      <img
+                        :src="goods.goodsImg.match(/^http\:\/\/7xjyw1/)?'https://fuss10.elemecdn.com/e/ee/df43e7e53f6e1346c3fda0609f1d3png.png':''"
+                        width="100%"
+                      >
                     </span>
                     <span class="foodName">{{goods.goodsName}}</span>
                     <span class="foodPrice">￥{{goods.price}}元</span>
@@ -105,34 +123,51 @@ export default {
   components: {},
   data() {
     return {
-      tableData: [
-        {
-          goodsName: "可口可乐",
-          price: 8,
-          count: 1
-        },
-        {
-          goodsName: "香辣鸡腿堡",
-          price: 15,
-          count: 1
-        },
-        {
-          goodsName: "爱心薯条",
-          price: 8,
-          count: 1
-        },
-        {
-          goodsName: "甜筒",
-          price: 8,
-          count: 1
-        }
-      ],
+      tableData: [],
       oftenGoods: [],
       type0Goods: [],
       type1Goods: [],
       type2Goods: [],
       type3Goods: [],
+      totalCount: 0,
+      totalMoney: 0
     };
+  },
+  methods: {
+    //添加订单列表的方法
+    addOrderList(goods) {
+      this.totalCount = 0; //汇总数量清0
+      this.totalMoney = 0;
+      let isHave = false;
+      //判断是否存在
+      for (let i = 0; i < this.tableData.length; i++) {
+        console.log(this.tableData[i].goodsId);
+        if (this.tableData[i].goodsId == goods.goodsId) {
+          isHave = true; //存在
+        }
+      }
+      //根据isHave的值操作
+      if (isHave) {
+        //存在就进行数量添加
+        let arr = this.tableData.filter(o => o.goodsId == goods.goodsId);
+        arr[0].count++;
+        //console.log(arr);
+      } else {
+        //不存在就推入数组
+        let newGoods = {
+          goodsId: goods.goodsId,
+          goodsName: goods.goodsName,
+          price: goods.price,
+          count: 1
+        };
+        this.tableData.push(newGoods);
+      }
+      //进行数量和价格的汇总计算
+      this.tableData.forEach(element => {
+        this.totalCount += element.count;
+        this.totalMoney = this.totalMoney + element.price * element.count;
+      });
+    }
   },
   mounted() {
     var orderHeight = document.body.clientHeight;
@@ -149,9 +184,10 @@ export default {
         console.log(error);
       });
     //读取分类商品列表
-    axios.get("typeGoods")
+    axios
+      .get("typeGoods")
       .then(response => {
-        console.log(response);
+        // console.log(response);
         this.type0Goods = response.data[0];
         this.type1Goods = response.data[1];
         this.type2Goods = response.data[2];
@@ -159,7 +195,6 @@ export default {
       })
       .catch(error => {
         console.log(error);
-        // alert("网络错误，不能访问");
       });
   }
 };
