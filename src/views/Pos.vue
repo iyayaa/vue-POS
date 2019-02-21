@@ -29,7 +29,7 @@
           <div class="order-btn">
             <el-button type="warning">挂单</el-button>
             <el-button type="danger" @click="delAllGoods()" delAllGoods>删除</el-button>
-            <el-button type="success">结账</el-button>
+            <el-button type="success" @click="checkout()">结账</el-button>
           </div>
         </el-col>
         <!--商品展示-->
@@ -185,6 +185,22 @@ export default {
       this.tableData = [];
       this.totalCount = 0;
       this.totalMoney = 0;
+    },
+    // 结账
+    checkout() {
+      if (this.totalCount != 0) {
+        setTimeout(() => {
+          this.tableData = [];
+          this.totalCount = 0;
+          this.totalMoney = 0;
+        }, 3000);
+        this.$message({
+            message: "结账成功，员工餐加鸡腿!",
+            type: "success"
+          });
+      } else {
+        this.$message.error("没有商品");
+      }
     }
   },
   mounted() {
