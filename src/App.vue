@@ -1,13 +1,40 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
-    <router-view/>
+    <!--左侧导航-->
+    <leftNav/>
+
+    <!--操作区域-->
+    <div class="main">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
+<script>
+import leftNav from "@/components/common/leftNav.vue";
+export default {
+  name: "app",
+  components: {
+    leftNav
+  }
+};
+</script>
+
 
 <style>
+#app {
+  font-family: "Microsoft YaHei", "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: left;
+  color: #2c3e50;
+  height: 100%;
+}
 
+.main {
+  float: left;
+  width: 95%;
+  background-color: #eff2f7;
+  height: 100%;
+  overflow: auto;
+}
 </style>
